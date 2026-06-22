@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DELTA 426 | MOTO CUSTOM SHOP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--black:#0a0a0a;--dark:#111111;--dark2:#1a1a1a;--red:#cc0000;--red2:#ff1a1a;--white:#f0ede8;--gray:#888;--gl:#aaa;--bd:rgba(255,255,255,0.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Barlow','Noto Sans JP',sans-serif;font-weight:300;overflow-x:hidden;}
+*{cursor:none;}
+
+.cursor-wrench{position:fixed;pointer-events:none;z-index:9999;width:28px;height:28px;transform:translate(-50%,-50%) rotate(270deg);transition:transform .25s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 0 4px rgba(204,0,0,0.6));}
+.cursor-wrench.hovered{transform:translate(-50%,-50%) rotate(360deg) scale(1.2);}
+.cursor-wrench svg{width:100%;height:100%;}
+.cursor-trail{position:fixed;pointer-events:none;z-index:9998;width:5px;height:5px;background:rgba(204,0,0,0.35);border-radius:50%;transform:translate(-50%,-50%);}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(0,0,0,0.85),transparent);}
+.navlogo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.15em;color:var(--white);text-decoration:none;}
+.navlogo span{color:var(--red);}
+.navlinks{display:flex;gap:32px;list-style:none;align-items:center;}
+.navlinks a{color:var(--gl);text-decoration:none;font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;transition:color .3s;}
+.navlinks a:hover{color:var(--red);}
+.langbtns{display:flex;gap:4px;}
+.lbtn{background:none;border:1px solid transparent;color:var(--gray);font-size:.7rem;letter-spacing:.12em;padding:3px 9px;cursor:none;transition:all .3s;font-family:'Barlow',sans-serif;}
+.lbtn:hover{color:var(--white);}
+.lbtn.on{border-color:var(--red);color:var(--red);}
+
+.hero{position:relative;height:100vh;min-height:600px;overflow:hidden;}
+.herobg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.42);transform:scale(1.06);transition:transform 10s ease;}
+.herobg.go{transform:scale(1);}
+.herool{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.05) 40%,rgba(10,10,10,.6) 75%,rgba(10,10,10,1) 100%);}
+.heroc{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 56px 88px;max-width:900px;}
+.heye{font-size:.68rem;letter-spacing:.4em;text-transform:uppercase;color:var(--red);margin-bottom:14px;opacity:0;transform:translateY(16px);animation:fu .7s .4s forwards;}
+.htitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,12vw,10rem);line-height:.88;letter-spacing:.04em;opacity:0;transform:translateY(28px);animation:fu .8s .55s forwards;}
+.htitle .r{color:var(--red);}
+.hsub{margin-top:22px;font-size:1rem;color:var(--gl);font-weight:300;letter-spacing:.04em;opacity:0;transform:translateY(16px);animation:fu .7s .75s forwards;}
+.hbrands{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;opacity:0;transform:translateY(16px);animation:fu .7s .9s forwards;}
+.bchip{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,237,232,.45);border:1px solid rgba(255,255,255,.1);padding:4px 11px;}
+@keyframes fu{to{opacity:1;transform:translateY(0);}}
+
+section{padding:96px 56px;}
+.sl{font-size:.66rem;letter-spacing:.38em;text-transform:uppercase;color:var(--red);margin-bottom:14px;}
+.st{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5.5vw,5rem);letter-spacing:.04em;line-height:1;margin-bottom:48px;}
+
+/* お知らせ見出し行 */
+.news-head{display:flex;align-items:center;gap:16px;margin-bottom:48px;}
+.news-head .st{margin-bottom:0;}
+.news-sns{display:flex;gap:8px;}
+.news-sns .sns-btn{width:42px;height:42px;}
+.news-sns .sns-btn svg{width:18px;height:18px;}
+
+.news{background:var(--dark);}
+.ni{display:flex;gap:26px;align-items:flex-start;padding:22px 0;border-bottom:1px solid var(--bd);opacity:0;transform:translateX(-16px);transition:opacity .5s,transform .5s;}
+.ni.v{opacity:1;transform:translateX(0);}
+.nmeta{display:flex;flex-direction:column;gap:6px;min-width:110px;}
+.ndate{font-size:.68rem;letter-spacing:.08em;color:var(--gray);}
+.nbadge{font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;padding:2px 8px;display:inline-block;width:fit-content;}
+.bnew{background:var(--red);color:#fff;}
+.binfo{background:#333;color:var(--gl);}
+.ntxt{font-size:.9rem;color:var(--white);line-height:1.8;flex:1;}
+
+.services{background:var(--black);}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:2px;}
+.sc{background:var(--dark);padding:38px 30px;border-top:3px solid transparent;opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s,border-top-color .3s,background .3s;}
+.sc.v{opacity:1;transform:translateY(0);}
+.sc:hover{border-top-color:var(--red);background:var(--dark2);}
+.snum{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:rgba(204,0,0,.12);line-height:1;margin-bottom:12px;}
+.sen{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:9px;}
+.sname{font-size:.98rem;font-weight:500;letter-spacing:.03em;margin-bottom:12px;}
+.sdesc{font-size:.83rem;color:var(--gl);line-height:1.85;}
+
+.gallery{background:var(--dark);}
+.ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.gi{position:relative;overflow:hidden;aspect-ratio:4/3;opacity:0;transform:scale(.97);transition:opacity .5s,transform .5s;}
+.gi.v{opacity:1;transform:scale(1);}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .5s,filter .5s;filter:brightness(.8) saturate(.85);}
+.gi:hover img{transform:scale(1.07);filter:brightness(1) saturate(1.1);}
+.gcap{position:absolute;bottom:0;left:0;right:0;padding:22px 13px 11px;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,237,232,.7);opacity:0;transition:opacity .3s;}
+.gi:hover .gcap{opacity:1;}
+
+.access{background:var(--black);}
+.agrid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:start;}
+.arows{display:flex;flex-direction:column;gap:24px;}
+.ar{display:flex;flex-direction:column;gap:5px;}
+.alb{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gray);}
+.av{font-size:.93rem;color:var(--white);line-height:1.7;}
+.av a{color:var(--red);text-decoration:none;}
+.mapbox{width:100%;aspect-ratio:16/10;overflow:hidden;border:1px solid var(--bd);}
+.mapbox iframe{width:100%;height:100%;border:0;filter:grayscale(1) invert(.85) contrast(.85) brightness(.9);}
+
+.contact{background:var(--dark);}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+.clead{font-size:.93rem;color:var(--gl);line-height:2;margin-bottom:30px;}
+.cmethods{display:flex;flex-direction:column;gap:10px;}
+.cm{display:flex;align-items:center;gap:15px;padding:17px 20px;border:1px solid var(--bd);text-decoration:none;transition:border-color .3s;}
+.cm:hover{border-color:var(--red);}
+.cicon{font-size:1.25rem;width:28px;display:flex;align-items:center;justify-content:center;}
+.cinfo{display:flex;flex-direction:column;gap:3px;}
+.clbl{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);}
+.cval{font-size:.9rem;color:var(--white);}
+
+.sns-row{display:flex;gap:10px;margin-top:14px;}
+.sns-btn{display:flex;align-items:center;justify-content:center;width:63px;height:63px;border:1px solid var(--bd);text-decoration:none;transition:border-color .3s,background .3s;}
+.sns-btn:hover{border-color:var(--red);background:rgba(204,0,0,.1);}
+.sns-btn svg{width:27px;height:27px;fill:var(--gl);transition:fill .3s;}
+.sns-btn:hover svg{fill:var(--white);}
+
+.cform{display:flex;flex-direction:column;gap:13px;}
+.fg{display:flex;flex-direction:column;gap:6px;}
+.fl{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--white);}
+.fi,.fs,.ft{background:rgba(255,255,255,.04);border:1px solid var(--bd);color:var(--white);padding:10px 14px;font-size:.88rem;font-family:'Barlow','Noto Sans JP',sans-serif;outline:none;transition:border-color .3s;width:100%;}
+.fi:focus,.fs:focus,.ft:focus{border-color:var(--red);}
+.fs option{background:var(--dark);}
+.ft{min-height:106px;resize:vertical;}
+.fbtn{background:var(--red);color:#fff;border:none;padding:13px 28px;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;font-family:'Barlow',sans-serif;cursor:none;transition:background .3s;align-self:flex-start;}
+.fbtn:hover{background:var(--red2);}
+.fsuccess{display:none;padding:13px;border:1px solid var(--red);color:var(--red);font-size:.82rem;letter-spacing:.04em;}
+
+footer{background:#060606;padding:34px 56px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--bd);flex-wrap:wrap;gap:12px;}
+.flogo{font-family:'Bebas Neue',sans-serif;font-size:1.12rem;letter-spacing:.15em;}
+.flogo span{color:var(--red);}
+.fcopy{font-size:.68rem;color:var(--gray);letter-spacing:.08em;}
+
+@media(max-width:900px){nav{padding:16px 24px;}section{padding:68px 26px;}.heroc{padding:0 26px 60px;}.ggrid{grid-template-columns:1fr 1fr;}.agrid{grid-template-columns:1fr;}.cgrid{grid-template-columns:1fr;}footer{padding:26px 24px;}}
+@media(max-width:500px){.navlinks{display:none;}.ggrid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="cursor-wrench" id="cWrench">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke="#cc0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="rgba(204,0,0,0.15)"/>
+  </svg>
+</div>
+<div class="cursor-trail" id="cTrail"></div>
+
+<nav>
+  <a href="#top" class="navlogo">DELTA <span>426</span></a>
+  <ul class="navlinks">
+    <li><a href="#news" data-k="nav_news">NEWS</a></li>
+    <li><a href="#services" data-k="nav_svc">SERVICES</a></li>
+    <li><a href="#gallery" data-k="nav_gal">GALLERY</a></li>
+    <li><a href="#access" data-k="nav_acc">ACCESS</a></li>
+    <li><a href="#contact" data-k="nav_con">CONTACT</a></li>
+  </ul>
+  <div class="langbtns">
+    <button class="lbtn on" id="bjp" onclick="setLang('ja')">JP</button>
+    <button class="lbtn" id="ben" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<div class="hero" id="top">
+  <div class="herobg" id="hbg"></div>
+  <div class="herool"></div>
+  <div class="heroc">
+    <div class="heye" data-k="hero_eye">東京 · 八王子 · Moto Custom</div>
+    <h1 class="htitle">DELTA<br><span class="r">426</span></h1>
+    <p class="hsub" data-k="hero_sub">技術で語る、八王子のガレージ。</p>
+    <div class="hbrands">
+      <span class="bchip">BRAKING</span><span class="bchip">BREMBO</span><span class="bchip">ÖHLINS</span>
+      <span class="bchip">STRIKER</span><span class="bchip">KERKER</span><span class="bchip">MAC TOOLS</span>
+    </div>
+  </div>
+</div>
+
+<section class="news" id="news">
+  <div class="sl">LATEST NEWS</div>
+  <div class="news-head">
+    <h2 class="st" data-k="news_title">お知らせ</h2>
+    <div class="news-sns">
+      <a href="https://x.com/delta426moto" target="_blank" class="sns-btn" title="X (Twitter)">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.745l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+      <a href="https://instagram.com/shingo.saito.102" target="_blank" class="sns-btn" title="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div>
+    <div class="ni">
+      <div class="nmeta"><span class="ndate">2026.03.07</span><span class="nbadge bnew" data-k="b_new">NEW</span></div>
+      <p class="ntxt" data-k="n1">ホームページをオープンしました。現在オープニングキャンペーン実施中！初回ご来店のお客様は工賃10%オフとなります。お気軽にご相談ください。</p>
+    </div>
+    <div class="ni">
+      <div class="nmeta"><span class="ndate">2026.03.01</span><span class="nbadge binfo" data-k="b_info">INFO</span></div>
+      <p class="ntxt" data-k="n2">2026年シーズンのサーキット走行サポート受付開始。ST600クラスのレースサポートも承ります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="sl">WHAT WE DO</div>
+  <h2 class="st" data-k="svc_title">サービス</h2>
+  <div class="sgrid">
+    <div class="sc"><div class="snum">01</div><div class="sen">General Maintenance</div><div class="sname" data-k="s1n">一般整備</div><p class="sdesc" data-k="s1d">オイル交換・タイヤ交換から車検整備まで。日常のメンテナンスをしっかりサポートします。</p></div>
+    <div class="sc"><div class="snum">02</div><div class="sen">Circuit Spec Build</div><div class="sname" data-k="s2n">サーキット走行車両製作</div><p class="sdesc" data-k="s2d">本格的なサーキット走行に向けた足回り・ブレーキ・エンジンチューニング。富士・もてぎ対応。</p></div>
+    <div class="sc"><div class="snum">03</div><div class="sen">Race Support</div><div class="sname" data-k="s3n">レースサポート</div><p class="sdesc" data-k="s3d">ST600クラスを中心としたレースサポート。ピットワークからセッティングまで経験豊富なメカニックが対応。</p></div>
+    <div class="sc"><div class="snum">04</div><div class="sen">Race Machine Build</div><div class="sname" data-k="s4n">レース車両製作</div><p class="sdesc" data-k="s4d">レース専用車両の製作・改造。本気で戦うための1台を、一緒に作り上げます。（要相談）</p></div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="sl">PHOTO GALLERY</div>
+  <h2 class="st" data-k="gal_title">ギャラリー</h2>
+  <div class="ggrid">
+    <div class="gi"><img src="img/gallery_01.jpg" alt="KAWASAKI ZX-10R"><div class="gcap" data-k="g1">KAWASAKI ZX-10R</div></div>
+    <div class="gi"><img src="img/gallery_02.jpg" alt="OWNER OF DELTA426 MR SAITO"><div class="gcap" data-k="g2">OWNER OF DELTA426 MR SAITO</div></div>
+    <div class="gi"><img src="img/gallery_03.jpg" alt="FUJI SPEEDWAY"><div class="gcap" data-k="g3">FUJI SPEEDWAY</div></div>
+    <div class="gi"><img src="img/gallery_04.jpg" alt="KAWASAKI ZX-10R NIGHT"><div class="gcap" data-k="g4">SC PROJECT TITANIUM</div></div>
+    <div class="gi"><img src="img/gallery_05.jpg" alt="WORKSHOP"><div class="gcap" data-k="g5">WORKSHOP</div></div>
+    <div class="gi"><img src="img/gallery_06.jpg" alt="SC PROJECT TITANIUM"><div class="gcap" data-k="g6">SC PROJECT TITANIUM</div></div>
+  </div>
+</section>
+
+<section class="access" id="access">
+  <div class="sl">FIND US</div>
+  <h2 class="st" data-k="acc_title">アクセス</h2>
+  <div class="agrid">
+    <div class="arows">
+      <div class="ar"><span class="alb">ADDRESS</span><span class="av" data-k="acc_addr">東京都八王子市横川町1199</span></div>
+      <div class="ar"><span class="alb">HOURS</span><span class="av">10:00 — 20:00</span></div>
+      <div class="ar"><span class="alb" data-k="acc_cll">定休日</span><span class="av" data-k="acc_cl">毎週火曜日</span></div>
+      <div class="ar"><span class="alb">TEL</span><span class="av"><a href="tel:0426240696">042-624-0696</a></span></div>
+      <div class="ar"><span class="alb" data-k="acc_stl">最寄駅</span><span class="av" data-k="acc_st">JR西八王子駅より約2.3km</span></div>
+    </div>
+    <div class="mapbox">
+      <iframe src="https://www.google.com/maps?q=35.6687273,139.2925104&hl=ja&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="sl">GET IN TOUCH</div>
+  <h2 class="st" data-k="con_title">お問い合わせ</h2>
+  <div class="cgrid">
+    <div>
+      <p class="clead" data-k="con_lead">整備のご相談、サーキット走行のセットアップ、<br>レースサポートなど、お気軽にどうぞ。</p>
+      <div class="cmethods">
+        <a href="tel:0426240696" class="cm">
+          <span class="cicon">📞</span>
+          <div class="cinfo"><span class="clbl">TELEPHONE</span><span class="cval">042-624-0696</span></div>
+        </a>
+        <a href="mailto:delta426.ss@gmail.com" class="cm">
+          <span class="cicon">✉️</span>
+          <div class="cinfo"><span class="clbl">EMAIL</span><span class="cval">delta426.ss@gmail.com</span></div>
+        </a>
+        <a href="#" class="cm">
+          <span class="cicon">💬</span>
+          <div class="cinfo"><span class="clbl">LINE</span><span class="cval" data-k="line_tbd">準備中 / Coming Soon</span></div>
+        </a>
+      </div>
+      <div class="sns-row">
+        <a href="https://x.com/delta426moto" target="_blank" class="sns-btn" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.745l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://instagram.com/shingo.saito.102" target="_blank" class="sns-btn" title="Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <form class="cform" id="cForm" action="https://formspree.io/f/xlgpwlve" method="POST">
+        <div class="fg"><label class="fl" data-k="fn">お名前</label><input type="text" name="name" class="fi" required></div>
+        <div class="fg"><label class="fl" data-k="fe">メールアドレス</label><input type="email" name="email" class="fi" required></div>
+        <div class="fg"><label class="fl" data-k="ft_l">お問い合わせ種別</label>
+          <select name="type" class="fs">
+            <option data-k="o0">選択してください</option>
+            <option data-k="o1">一般整備</option>
+            <option data-k="o2">サーキット走行車両製作</option>
+            <option data-k="o3">レースサポート</option>
+            <option data-k="o4">レース車両製作</option>
+            <option data-k="o5">その他</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl" data-k="fm">メッセージ</label><textarea name="message" class="ft" required></textarea></div>
+        <button type="submit" class="fbtn" data-k="fsend">送信する</button>
+        <div class="fsuccess" id="fOK" data-k="fok">送信完了しました。ありがとうございます。</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">DELTA <span>426</span></div>
+  <div class="fcopy">© 2026 DELTA 426 MOTO CUSTOM SHOP. All rights reserved.</div>
+</footer>
+
+<script>
+const wrench=document.getElementById('cWrench');
+const trail=document.getElementById('cTrail');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  wrench.style.left=mx+'px';wrench.style.top=my+'px';
+});
+(function A(){
+  tx+=(mx-tx)*.22;ty+=(my-ty)*.22;
+  trail.style.left=tx+'px';trail.style.top=ty+'px';
+  requestAnimationFrame(A);
+})();
+document.querySelectorAll('a,button,.sc,.gi,.cm,.sns-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>wrench.classList.add('hovered'));
+  el.addEventListener('mouseleave',()=>wrench.classList.remove('hovered'));
+});
+window.addEventListener('load',()=>{
+  const b=document.getElementById('hbg');
+  b.style.backgroundImage="url('img/hero.jpg')";
+  setTimeout(()=>b.classList.add('go'),50);
+});
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v');}),{threshold:.12});
+document.querySelectorAll('.ni,.sc,.gi').forEach(el=>io.observe(el));
+document.getElementById('cForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const btn=e.target.querySelector('.fbtn');
+  btn.textContent='送信中...';
+  try{
+    const r=await fetch(e.target.action,{method:'POST',body:new FormData(e.target),headers:{'Accept':'application/json'}});
+    if(r.ok){e.target.reset();document.getElementById('fOK').style.display='block';btn.textContent='送信完了 ✓';}
+    else{btn.textContent='エラー';}
+  }catch{btn.textContent='エラー';}
+});
+const T={
+  ja:{nav_news:'NEWS',nav_svc:'SERVICES',nav_gal:'GALLERY',nav_acc:'ACCESS',nav_con:'CONTACT',
+    hero_eye:'東京 · 八王子 · Moto Custom',hero_sub:'技術で語る、八王子のガレージ。',
+    news_title:'お知らせ',b_new:'NEW',b_info:'INFO',
+    n1:'ホームページをオープンしました。現在オープニングキャンペーン実施中！初回ご来店のお客様は工賃10%オフとなります。お気軽にご相談ください。',
+    n2:'2026年シーズンのサーキット走行サポート受付開始。ST600クラスのレースサポートも承ります。',
+    svc_title:'サービス',
+    s1n:'一般整備',s1d:'オイル交換・タイヤ交換から車検整備まで。日常のメンテナンスをしっかりサポートします。',
+    s2n:'サーキット走行車両製作',s2d:'本格的なサーキット走行に向けた足回り・ブレーキ・エンジンチューニング。富士・もてぎ対応。',
+    s3n:'レースサポート',s3d:'ST600クラスを中心としたレースサポート。ピットワークからセッティングまで経験豊富なメカニックが対応。',
+    s4n:'レース車両製作',s4d:'レース専用車両の製作・改造。本気で戦うための1台を、一緒に作り上げます。（要相談）',
+    gal_title:'ギャラリー',
+    g1:'KAWASAKI ZX-10R',g2:'OWNER OF DELTA426 MR SAITO',g3:'FUJI SPEEDWAY',g4:'SC PROJECT TITANIUM',g5:'WORKSHOP',g6:'SC PROJECT TITANIUM',
+    acc_title:'アクセス',acc_addr:'東京都八王子市横川町1199',acc_cll:'定休日',acc_cl:'毎週火曜日',acc_stl:'最寄駅',acc_st:'JR西八王子駅より約2.3km',
+    con_title:'お問い合わせ',con_lead:'整備のご相談、サーキット走行のセットアップ、<br>レースサポートなど、お気軽にどうぞ。',
+    line_tbd:'準備中 / Coming Soon',
+    fn:'お名前',fe:'メールアドレス',ft_l:'お問い合わせ種別',fm:'メッセージ',fsend:'送信する',fok:'送信完了しました。ありがとうございます。',
+    o0:'選択してください',o1:'一般整備',o2:'サーキット走行車両製作',o3:'レースサポート',o4:'レース車両製作',o5:'その他'},
+  en:{nav_news:'NEWS',nav_svc:'SERVICES',nav_gal:'GALLERY',nav_acc:'ACCESS',nav_con:'CONTACT',
+    hero_eye:'TOKYO · HACHIOJI · Moto Custom',hero_sub:'Built in a Hachioji garage. Proven on the circuit.',
+    news_title:'NEWS',b_new:'NEW',b_info:'INFO',
+    n1:'Website launched. Opening campaign now on — 10% off labor costs for first-time customers.',
+    n2:'2026 circuit support bookings now open. Race support for ST600 class available.',
+    svc_title:'SERVICES',
+    s1n:'General Maintenance',s1d:'From oil and tire changes to shaken inspections. All regular maintenance covered.',
+    s2n:'Circuit Spec Build',s2d:'Full suspension, brake and engine tuning for serious circuit use. Fuji & Motegi ready.',
+    s3n:'Race Support',s3d:'On-site support for ST600 class. Pit work and setup by experienced mechanics.',
+    s4n:'Race Machine Build',s4d:'Full race machine construction and modification. Built to win. (By consultation)',
+    gal_title:'GALLERY',
+    g1:'KAWASAKI ZX-10R',g2:'OWNER OF DELTA426 MR SAITO',g3:'FUJI SPEEDWAY',g4:'SC PROJECT TITANIUM',g5:'WORKSHOP',g6:'SC PROJECT TITANIUM',
+    acc_title:'ACCESS',acc_addr:'1199 Yokogawacho, Hachioji, Tokyo',acc_cll:'CLOSED',acc_cl:'Every Tuesday',acc_stl:'NEAREST STATION',acc_st:'2.3km from JR Nishi-Hachioji Station',
+    con_title:'CONTACT',con_lead:'For maintenance, circuit setup, or race support,<br>feel free to reach out anytime.',
+    line_tbd:'Coming Soon',
+    fn:'Name',fe:'Email Address',ft_l:'Inquiry Type',fm:'Message',fsend:'SEND',fok:'Message sent. Thank you!',
+    o0:'Please select',o1:'General Maintenance',o2:'Circuit Spec Build',o3:'Race Support',o4:'Race Machine Build',o5:'Other'}
+};
+function setLang(l){
+  document.querySelectorAll('[data-k]').forEach(el=>{const v=T[l][el.getAttribute('data-k')];if(v!==undefined)el.innerHTML=v;});
+  document.getElementById('bjp').classList.toggle('on',l==='ja');
+  document.getElementById('ben').classList.toggle('on',l==='en');
+  localStorage.setItem('delta426_lang',l);
+}
+const savedLang=localStorage.getItem('delta426_lang')||'ja';
+setLang(savedLang);
+</script>
+</body>
+</html>
